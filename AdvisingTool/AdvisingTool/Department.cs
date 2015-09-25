@@ -14,12 +14,25 @@ namespace AdvisingTool
         public Department()
         {
             courses = new LinkedList<Course>(courses);
-
         }
 
-        public void AddCourses(int course_number, int section_number, string course_name, string course_description)
+        public void AddCourse(int course_number, int section_number, int course_hours, int course_type, string course_name, string course_description, LinkedList<Course> prereq)
         {
-            //adds courses into linked list from file
+            Course new_course;
+
+            //adds course into linked list without prereq
+            if (prereq == null)
+            {
+                new_course = new Course(course_number, section_number, course_hours, course_type, course_name, course_description);
+                courses.AddLast(new_course);
+            }
+
+            //adds course into linked list with prereq
+            else
+            {
+                new_course = new Course(course_number, section_number, course_hours, course_type, course_name, course_description, prereq);
+                courses.AddLast(new_course);
+            }
         }
 
         private void DeleteCourse(string course_name)
